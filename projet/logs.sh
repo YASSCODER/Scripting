@@ -1,41 +1,54 @@
 #!/bin/bash
 source "secure.sh"
 
-show_usage
+show_usage #how to use the script 
 
 
 
-while getopts "hcabl" option
+while getopts "hcablgm" option
 do
     case $option in
 
 h)
 
-help
+help #help function from secure.sh
 
 ;;
 
 c)
 
-connexion
+connexion #connexion function from secure.sh
 
 ;;
 
 a)
-
-alert
+ 
+alert #alert function from secure.sh
 
 ;;
 
 l)
 
-mailLogServices
+mailLogServices #mailLogServices function from secure.sh
 
 ;;
 
 b)
 
-boot
+boot #boot function from secure.sh
+
+;;
+
+g)
+
+g=${OPTARG}
+graphic $2 #graphic function from secure.sh
+
+;;
+
+m)
+
+menu #menu function from secure.sh
 
 ;;
 
