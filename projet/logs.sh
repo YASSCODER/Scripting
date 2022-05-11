@@ -1,46 +1,70 @@
 #!/bin/bash
-source "secure.sh"
+source "~/Desktop/projet5/secure.sh"
+ 
 
-show_usage
+    while getopts ":hcablgm" option ;
+        do
+            if [ $# -ne 1 ]; then
+ 			    echo "Le nombre d'arguments est invalide";exit
+		    fi
+            case $option in
 
+            h)
 
+            help #help function from secure.sh
 
-while getopts "hcabl" option
-do
-    case $option in
+            ;;
 
-h)
+            c)
 
-help
+            connexion #connexion function from secure.sh
 
-;;
+            ;;
 
-c)
+            a)
+            
+            alert #alert function from secure.sh
 
-connexion
+            ;;
 
-;;
+            l)
 
-a)
+            mailLogServices #mailLogServices function from secure.sh
 
-alert
+            ;;
 
-;;
+            b)
 
-l)
+            boot #boot function from secure.sh
 
-mailLogServices
+            ;;
 
-;;
+            g)
 
-b)
+            g=${OPTARG}
+            graphic $2 #graphic function from secure.sh
 
-boot
+            ;;
 
-;;
+            m)
 
-esac
+            menu #menu function from secure.sh
 
-done
+            ;;
+
+            *)
+
+            show_usage  #how to use the script
+            exit 0
+            ;;
+
+            esac
+
+        done
+            if [ $OPTIND -eq 1 ]; then
+                show_usage #how to use the script
+                    exit 1
+            fi
+
 
 exit 0
