@@ -2,13 +2,14 @@
 
 #show ho to use the logs.sh file
 function show_usage(){
-	echo "logs.sh:[-h] [-m] [-g] [-c] [-l] [-a] [-b] chemin.."
+	echo "logs.sh:[-h] [-m] [-g] [-c] [-l] [-a] [-b]"
 }
 
 #test function to test the arguments
 function tester(){
-	if [[ $1 == "-h" || $1 == "-m" ||  $1 == "-g" ||  $1 == "-c" || $1  == "-l" || $1 == "-a" || $1 == "-b" ]]
-		then echo "1"
+	if [[ $1 -eq "-h" || $1 -eq "-m" ||  $1 -eq "-g" ||  $1 -eq "-c" || $1  -eq "-l" || $1 -eq "-a" || $1 -eq "-b" ]]
+		then echo "good usage of logs.sh"
+			return 1
 		else 
 			echo "error of usage of arguments for log.sh"
 	fi
@@ -48,11 +49,12 @@ function alert(){
 }
 
 #this functions gives the mail logs & error.logs 
-#in this machine can't create a smtp connection with google.gmail.service that's it's empty !
+#in this machine can't create a smtp connection with google.gmail.service that's why it's empty !
 
 function mailLogServices(){
-tail -n1 /var/log/mail.log > mail.log
-tail -n1 /var/log/mail.err > mail.err
+ tail -n /var/log/mail.log > mail.log
+ tail -n /var/log/mail.err > mail.err
+
 cat mail.log 
 echo "================"
 cat mail.err 
@@ -61,7 +63,7 @@ cat mail.err
 #boot services log
 
 function boot(){ 
-cat /var/log/boot.log | grep "Starting"
+sudo cat /var/log/boot.log | grep "Starting"
 
 }
 
@@ -80,30 +82,30 @@ function graphic(){
 
 		button=$?
 
-			[[ s$button -eq 1 ]] && exit 0
+			[[ $button -eq 1 ]] && exit 0
 
-			if [[ s$button -eq 2 ]]; then
+			if [[ $button -eq 2 ]]; then
 			show_usage
 			graphic
 
-			elif [[ s$button -eq 3 ]]; then
+			elif [[ $button -eq 3 ]]; then
 			echo "execution"
 			help
 			graphic
 
-			elif [[ s$button -eq 4 ]]; then
+			elif [[ $button -eq 4 ]]; then
 			connexion
 			graphic
 
-			elif [[ s$button -eq 5 ]]; then
+			elif [[ $button -eq 5 ]]; then
 			alert
 			graphic
 
-			elif [[ s$button -eq 6 ]]; then
+			elif [[ $button -eq 6 ]]; then
 			mailLogServices
 			graphic		
 
-			elif [[ s$button -eq 7 ]]; then
+			elif [[ $button -eq 7 ]]; then
 			boot
 			graphic
 		fi
@@ -130,17 +132,17 @@ function menu(){
 	read choix
 
 	case $choix in
-	"1") show_usage $2
+	"1") show_usage 
 		;;
-	"2") help $2
+	"2") help 
 	;;
-	"3")connexion $2
+	"3") connexion 
 	;;
-	"4") alert $2
+	"4") alert 
 	;;
-	"5") mailLogServices $2
+	"5") mailLogServices 
 	;;
-	"6") boot $2
+	"6") boot 
 	;;
 	"0") exit 
 	;;
